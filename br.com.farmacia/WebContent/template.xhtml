@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>
+        <title>Farmacia</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    	<h:outputStylesheet library="css" name="estilo.css"/>
+    
+    </h:head>
+    
+    <h:body>
+        
+        <h:form>
+            
+            <p:menubar styleClass="menu">
+                <p:submenu label="Parâmetros">
+                    <p:menuitem value="PrinicipioAtivo" url="/parametros/PrinicipioAtivo.xhtml"/>
+                    <p:menuitem value="UnidadeFederativa" url="/parametros/UnidadeFederativa.xhtml"/>
+                    <p:menuitem value="Cor" url="#"/>
+                    <p:menuitem value="Combustivel" url="#"/>
+                </p:submenu>   
+                
+            </p:menubar>
+            
+        </h:form>
+        
+        <div id="content">
+            <ui:insert name="conteudo"/>
+        </div>
+        
+    </h:body>
+</html>

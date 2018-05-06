@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="PrincipioAtivo">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{principioAtivoController.principioAtivo.idPrincipioAtivo}" />
+                    
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputText value="Descrição:" />
+                        
+                        <p:inputText value="#{principioAtivoController.principioAtivo.descricao}" />
+                        
+                    </h:panelGrid>
+                   
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{principioAtivoController.salvar()}"
+                                     update="@form"/>
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{principioAtivoController.listarPrincipioAtivo()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhuma ativo cadastrado"
+                                 var="principioAtivo">
+                        
+                        <p:column headerText="Código">
+                            #{principioAtivo.idPrincipioAtivo}
+                        </p:column>
+                        
+                        <p:column headerText="Descrição">
+                            #{principioAtivo.descricao}
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{principioAtivoController.editar(principioAtivo)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{principioAtivoController.excluir(principioAtivo)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

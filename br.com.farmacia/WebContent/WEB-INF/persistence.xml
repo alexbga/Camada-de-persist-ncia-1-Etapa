@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" version="1.0">
+	<persistence-unit name="br.edu.unipam.rest" transaction-type="JTA">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+   		<jta-data-source>farmacia</jta-data-source>
+   		
+   		<class>br.com.farmacia.entity.Endereco</class>
+		<class>br.com.farmacia.entity.Fornecedor</class>
+		<class>br.com.farmacia.entity.Funcionario</class>
+		<class>br.com.farmacia.entity.ItemVenda</class>
+		<class>br.com.farmacia.entity.Login</class>
+		<class>br.com.farmacia.entity.Medicamento</class>
+		<class>br.com.farmacia.entity.Pessoa</class>
+		<class>br.com.farmacia.entity.PrincipioAtivo</class>
+		<class>br.com.farmacia.entity.Sexo</class>
+		<class>br.com.farmacia.entity.Telefone</class>
+		<class>br.com.farmacia.entity.TipoTelefone</class>
+		<class>br.com.farmacia.entity.UnidadeFederativa</class>
+		<class>br.com.farmacia.entity.Venda</class>
+		
+		<properties>
+			<property name="eclipselink.logging.level" value="FINE"/>
+			<property name="eclipselink.logging.parameters" value="true"/>
+			<property name="eclipselink.ddl-generation" value="create-tables"/>
+		</properties>
+	</persistence-unit>
+</persistence>

@@ -7,11 +7,13 @@ import javax.validation.constraints.*;
 @Entity
 public class Funcionario {
    
-    @Id
-    @OneToOne
-    private Pessoa pessoa;
-    
-    @NotNull(message = "Informe o Salário")
+	@Id
+	@Column(name = "IdPessoa", 
+			insertable = false, updatable = false)
+	private Integer IdPessoa;
+	
+	
+    @NotNull(message = "Informe o sal�rio")
     private Double Salario;
     
     @NotNull(message = "Informe a Data de Inicio De Vigência")
@@ -21,61 +23,93 @@ public class Funcionario {
     @Temporal(TemporalType.DATE)
     private Date FimVigencia;
     
-    @OneToMany(mappedBy = "funcionarios")
-    private List<Venda> vendas;
+    @ManyToMany
+    @JoinTable(name = "Venda", 
+                        joinColumns = @JoinColumn(name = "IdPessoa"),
+                        inverseJoinColumns = @JoinColumn(name = "IdItemVenda"))
+    private List<ItemVenda> itensvenda;
     
-    @ManyToOne
-    @JoinColumn(name = "IdLogin")//FK
-    private Login logins;
+    @OneToOne
+	@JoinColumn(name = "IdPessoa")
+	private Pessoa pessoa;
+    
+	public Integer getIdPessoa() {
+		return IdPessoa;
+	}
 
-    public Login getLogins() {
-        return logins;
-    }
+	public void setIdPessoa(Integer idPessoa) {
+		IdPessoa = idPessoa;
+	}
 
-    public void setLogins(Login logins) {
-        this.logins = logins;
-    }
+	public Double getSalario() {
+		return Salario;
+	}
+
+	public void setSalario(Double salario) {
+		Salario = salario;
+	}
+
+	public Date getInicioVigencia() {
+		return InicioVigencia;
+	}
+
+	public void setInicioVigencia(Date inicioVigencia) {
+		InicioVigencia = inicioVigencia;
+	}
+
+	public Date getFimVigencia() {
+		return FimVigencia;
+	}
+
+	public void setFimVigencia(Date fimVigencia) {
+		FimVigencia = fimVigencia;
+	}
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+	
+	
+	
+	public List<ItemVenda> getItensvenda() {
+		return itensvenda;
+	}
+
+	public void setItensvenda(List<ItemVenda> itensvenda) {
+		this.itensvenda = itensvenda;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdPessoa == null) ? 0 : IdPessoa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Funcionario other = (Funcionario) obj;
+		if (IdPessoa == null) {
+			if (other.IdPessoa != null)
+				return false;
+		} else if (!IdPessoa.equals(other.IdPessoa))
+			return false;
+		return true;
+	}
+
 
     
-    public List<Venda> getVendas() {
-        return vendas;
-    }
-
-    public void setVendas(List<Venda> vendas) {
-        this.vendas = vendas;
-    }
-     
-     
-    public Double getSalario() {
-        return Salario;
-    }
-
-    public void setSalario(Double Salario) {
-        this.Salario = Salario;
-    }
-
-    public Date getInicioVigencia() {
-        return InicioVigencia;
-    }
-
-    public void setInicioVigencia(Date InicioVigencia) {
-        this.InicioVigencia = InicioVigencia;
-    }
-
-    public Date getFimVigencia() {
-        return FimVigencia;
-    }
-
-    public void setFimVigencia(Date FimVigencia) {
-        this.FimVigencia = FimVigencia;
-    }
-
-    public Pessoa getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(Pessoa pessoa) {
-        this.pessoa = pessoa;
-    }
+	
     
 }

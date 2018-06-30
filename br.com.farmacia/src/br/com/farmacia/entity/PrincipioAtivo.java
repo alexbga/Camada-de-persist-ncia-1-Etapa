@@ -12,7 +12,7 @@ public class PrincipioAtivo {
     private Short IdPrincipioAtivo;
      
     @NotNull(message = "Informe a Descricao do Principio Ativo")
-    @Size(max = 50, message = "Descricao dever ter até 80 caracteres")
+    @Size(max = 900, message = "Descricao dever ter até 900 caracteres")
     private String Descricao;
     
     @OneToMany(mappedBy = "principiosativos")
@@ -41,6 +41,32 @@ public class PrincipioAtivo {
     public void setMedicamentos(List<Medicamento> medicamentos) {
         this.medicamentos = medicamentos;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdPrincipioAtivo == null) ? 0 : IdPrincipioAtivo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		PrincipioAtivo other = (PrincipioAtivo) obj;
+		if (IdPrincipioAtivo == null) {
+			if (other.IdPrincipioAtivo != null)
+				return false;
+		} else if (!IdPrincipioAtivo.equals(other.IdPrincipioAtivo))
+			return false;
+		return true;
+	}
+    
     
     
 }

@@ -1,51 +1,83 @@
 package br.com.farmacia.entity;
 
 import javax.persistence.*;
-import java.util.*;
+
 
 @Entity
 public class Login {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int IdLogin;
-    private String Usuario;
-    private String senha;
-    
-    @OneToMany(mappedBy = "logins")
-    private List<Funcionario> funcionarios;
+	@Id
+	@Column(name = "IdPessoa", 
+			insertable = false, updatable = false)
+	private Integer IdPessoa;
+	
+	private String login;
+	private String senha;
+	
+	@OneToOne
+	@JoinColumn(name = "IdPessoa")
+	private Pessoa pessoa;
 
-    public int getIdLogin() {
-        return IdLogin;
-    }
+	public Integer getIdPessoa() {
+		return IdPessoa;
+	}
 
-    public void setIdLogin(int IdLogin) {
-        this.IdLogin = IdLogin;
-    }
+	public void setIdPessoa(Integer idPessoa) {
+		IdPessoa = idPessoa;
+	}
 
-    public String getUsuario() {
-        return Usuario;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public void setUsuario(String Usuario) {
-        this.Usuario = Usuario;
-    }
+	public void setLogin(String login) {
+		this.login = login;
+	}
 
-    public String getSenha() {
-        return senha;
-    }
+	public String getSenha() {
+		return senha;
+	}
 
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
 
-    public List<Funcionario> getFuncionarios() {
-        return funcionarios;
-    }
 
-    public void setFuncionarios(List<Funcionario> funcionarios) {
-        this.funcionarios = funcionarios;
-    }
+
+	public Pessoa getPessoa() {
+		return pessoa;
+	}
+
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdPessoa == null) ? 0 : IdPessoa.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Login other = (Login) obj;
+		if (IdPessoa == null) {
+			if (other.IdPessoa != null)
+				return false;
+		} else if (!IdPessoa.equals(other.IdPessoa))
+			return false;
+		return true;
+	}
+
+	
     
     
 }

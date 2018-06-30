@@ -1,0 +1,72 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="TipoTelefone">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{tipoTelefoneController.tipoTelefone.idTipoTelefone}" />
+                    
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputText value="Descrição:" />
+                        
+                        <p:inputText value="#{tipoTelefoneController.tipoTelefone.descricao}" />
+                        
+                    </h:panelGrid>
+                   
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{tipoTelefoneController.salvar()}"
+                                     update="@form"/>
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{tipoTelefoneController.listarTipoTelefones()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhuma tipo de telefone cadastrado"
+                                 var="tipoTelefone">
+                        
+                        <p:column headerText="Código">
+                            #{tipoTelefone.idTipoTelefone}
+                        </p:column>
+                        
+                        <p:column headerText="Descrição">
+                            #{tipoTelefone.descricao}
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{tipoTelefoneController.editar(tipoTelefone)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{tipoTelefoneController.excluir(tipoTelefone)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

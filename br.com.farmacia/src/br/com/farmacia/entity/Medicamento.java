@@ -12,7 +12,7 @@ public class Medicamento {
     private Short IdMedicamento;
     
     @NotNull(message = "Informe o Nome do Medicamento")
-    @Size(max = 50, message = "O nome dever ter atÃ© 80 caracteres")
+    @Size(max = 50, message = "O nome dever ter até 80 caracteres")
     private String NomeMedicamento;
     
     @ManyToOne
@@ -59,6 +59,32 @@ public class Medicamento {
     public void setPrincipiosativos(PrincipioAtivo principiosativos) {
         this.principiosativos = principiosativos;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdMedicamento == null) ? 0 : IdMedicamento.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Medicamento other = (Medicamento) obj;
+		if (IdMedicamento == null) {
+			if (other.IdMedicamento != null)
+				return false;
+		} else if (!IdMedicamento.equals(other.IdMedicamento))
+			return false;
+		return true;
+	}
+    
     
     
 }

@@ -1,0 +1,124 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Pessoa">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{pessoaController.pessoa.idPessoa}" />
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="4">
+                        
+                    <h:outputLabel value="Nome:" />
+      				<p:inputText value="#{pessoaController.pessoa.nome}" />
+      				
+      				<h:outputLabel value="Data Nascimento:" />
+      				<p:calendar value="#{pessoaController.pessoa.dataNascimento}" />
+      				
+      				<h:outputLabel value="CPF" />
+      				<p:inputText value="#{pessoaController.pessoa.CPF}" />
+      				
+      				<h:outputLabel value="RG:" />
+      				<p:inputText value="#{pessoaController.pessoa.RG}" />
+   					
+   					<h:outputLabel value="SiglaSexo" />
+      				<p:selectOneMenu value="#{pessoaController.pessoa.sexos}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione um Sexo"/>  
+      					<f:selectItems 
+      						value="#{sexoController.listarSexos()}"
+      						var="sexos" 
+      						itemLabel="#{sexos.descricao}"
+      						itemValue="#{sexos}" />
+      				</p:selectOneMenu>
+      			
+      				
+      				<h:outputLabel value="Salário" />
+      				<p:inputText value="#{pessoaController.pessoa.funcionario.salario}" />
+      				
+      				<h:outputLabel value="Início de Vigência" />
+      				<p:calendar value="#{pessoaController.pessoa.funcionario.inicioVigencia}" />
+      				
+      				<h:outputLabel value="Fim de Vigência" />
+      				<p:calendar value="#{pessoaController.pessoa.funcionario.fimVigencia}" />
+      				
+      				<h:outputLabel value="Login:" />
+   						<p:inputText value="#{pessoaController.pessoa.login.login}" />
+   						
+   						<h:outputLabel value="Senha"/>
+   						<p:password feedback="true" 
+   							 strongLabel="Senha forte"
+   							 value="#{pessoaController.pessoa.login.senha}" />
+   		
+      				
+                    </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{pessoaController.salvar()}" 
+                                     update="@form">
+                     </p:commandButton>                
+
+                
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{pessoaController.listarPessoas()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhuma pessoa cadastrada"
+                                 var="pessoa">
+                        
+                        <p:column headerText="Código">
+                            #{pessoa.idPessoa}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{pessoa.nome}
+                        </p:column>
+                        <p:column headerText="Data Nascimento">
+                            #{pessoa.dataNascimento}
+                        </p:column>
+                        <p:column headerText="CPF">
+                            #{pessoa.CPF}
+                        </p:column>
+                        <p:column headerText="RG">
+                            #{pessoa.RG}
+                        </p:column>
+                         <p:column headerText="Sexo">
+                            #{pessoa.sexos.descricao}
+                        </p:column>
+
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{pessoaController.editar(pessoa)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{pessoaController.excluir(pessoa)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

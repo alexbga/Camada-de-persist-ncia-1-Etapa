@@ -11,7 +11,7 @@ public class UnidadeFederativa {
     private String UF;
     
     @NotNull(message = "Informe o Nome do Estado")
-    @Size(max = 50, message = "O estado dever ter atÃ© 30 caracteres")
+    @Size(max = 50, message = "O estado dever ter até 30 caracteres")
     private String NomeDoEstado;
     
     @OneToMany(mappedBy = "unidadeFederativas")
@@ -40,6 +40,32 @@ public class UnidadeFederativa {
     public void setEnderecos(List<Endereco> enderecos) {
         this.enderecos = enderecos;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((UF == null) ? 0 : UF.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UnidadeFederativa other = (UnidadeFederativa) obj;
+		if (UF == null) {
+			if (other.UF != null)
+				return false;
+		} else if (!UF.equals(other.UF))
+			return false;
+		return true;
+	}
+    
     
 }
 

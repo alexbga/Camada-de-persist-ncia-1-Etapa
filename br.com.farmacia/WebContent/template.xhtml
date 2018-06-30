@@ -16,14 +16,27 @@
     <h:body>
         
         <h:form>
-            
-            <p:menubar styleClass="menu">
+        <p:menubar styleClass="menu">
                 <p:submenu label="Parâmetros">
-                    <p:menuitem value="PrinicipioAtivo" url="/parametros/PrinicipioAtivo.xhtml"/>
+                    <p:menuitem value="ItemVenda" url="/parametros/ItemVenda.xhtml"/>
                     <p:menuitem value="UnidadeFederativa" url="/parametros/UnidadeFederativa.xhtml"/>
-                    <p:menuitem value="Cor" url="#"/>
-                    <p:menuitem value="Combustivel" url="#"/>
-                </p:submenu>   
+                    <p:menuitem value="PrinicipioAtivo" url="/parametros/PrinicipioAtivo.xhtml"/>
+                    <p:menuitem value="Sexo" url="/parametros/Sexo.xhtml"/>
+                    <p:menuitem value="TipoTelefone" url="/parametros/TipoTelefone.xhtml"/>
+
+                </p:submenu> 
+                
+                <p:submenu label="Cadastros">
+                	<p:menuitem value="Pessoa" url="/parametros/Pessoa.xhtml" />
+                	<p:menuitem value="Fornecedor" url="/parametros/Fornecedor.xhtml"/>
+                	<p:menuitem value="Endereço" url="/parametros/Endereco.xhtml"/>
+                	<p:menuitem value="Telefone" url="/parametros/Telefone.xhtml"/>
+                	<p:menuitem value="Medicamento" url="/parametros/Medicamento.xhtml"/>
+                </p:submenu> 
+                
+                 <p:submenu label="Bem vindo #{loginController.usuarioLogado.pessoa.nome}">
+                 	<p:menuitem value="Sair" action="#{loginController.sair()}"/>
+                </p:submenu> 
                 
             </p:menubar>
             

@@ -1,0 +1,74 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Sexo">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{sexoController.sexo.siglaSexo}" />
+                    
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputText value="Sigla Sexo:" />
+                        <p:inputText value="#{sexoController.sexo.siglaSexo}" />
+                                          
+                        <h:outputText value="Sexo" />
+                        <p:inputText value="#{sexoController.sexo.descricao}" />
+                        
+                    </h:panelGrid>
+                   
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{sexoController.salvar()}"
+                                     update="@form"/>
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{sexoController.listarSexos()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhum sexo cadastrado"
+                                 var="sexo">
+                        
+                        <p:column headerText="Sigla Sexo">
+                            #{sexo.siglaSexo}
+                        </p:column>
+                        
+                        <p:column headerText="Sexo">
+                            #{sexo.descricao}
+                        </p:column>
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{sexoController.editar(sexo)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{sexoController.excluir(sexo)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

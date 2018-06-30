@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:head>
+        <title>Login Farmacia</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <h:outputStylesheet library="css" name="style.css" />
+    </h:head>
+    
+    <h:body>
+        
+        <h:form>
+     
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                        <h:outputText value="E-mail" />
+                        <p:inputText value="#{loginController.email}" />
+                        <h:outputText value="Senha" />
+                        <p:password value="#{loginController.senha}" />
+                        
+                    </h:panelGrid>
+                   
+                    <p:commandButton value="Entrar" 
+                                     action="#{loginController.entrar()}"
+                                     update="@form"/>
+            
+        </h:form>
+        
+    </h:body>
+</html>

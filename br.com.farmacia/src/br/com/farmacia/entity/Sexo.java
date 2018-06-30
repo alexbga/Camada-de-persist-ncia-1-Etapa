@@ -4,7 +4,6 @@ import javax.persistence.*;
 import java.util.*;
 import javax.validation.constraints.*;
 
-
 @Entity
 public class Sexo {
     
@@ -40,4 +39,30 @@ public class Sexo {
     public void setPessoas(List<Pessoa> pessoas) {
         this.pessoas = pessoas;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((SiglaSexo == null) ? 0 : SiglaSexo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Sexo other = (Sexo) obj;
+		if (SiglaSexo == null) {
+			if (other.SiglaSexo != null)
+				return false;
+		} else if (!SiglaSexo.equals(other.SiglaSexo))
+			return false;
+		return true;
+	}
+    
 }

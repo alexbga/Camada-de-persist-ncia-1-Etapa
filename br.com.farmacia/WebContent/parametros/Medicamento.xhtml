@@ -1,0 +1,91 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Medicamento">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{medicamentoController.medicamento.idMedicamento}" />
+                    
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                    <h:outputLabel value="Nome Medicamento:" />
+      				<p:inputText value="#{medicamentoController.medicamento.nomeMedicamento}" />
+      				
+
+      				<h:outputLabel value="PrincipioAtivo" />
+      				<p:selectOneMenu value="#{medicamentoController.medicamento.principiosativos}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione uma Princípio Ativo"/>  
+      					<f:selectItems 
+      						value="#{principioAtivoController.listarPrincipioAtivo()}"
+      						var="principioativo" 
+      						itemLabel="#{principioativo.descricao}"
+      						itemValue="#{principioativo}" />
+      				</p:selectOneMenu>
+      				
+                    </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{medicamentoController.salvar()}"
+                                     update="@form"/>
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{medicamentoController.listarMedicamentos()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhum medicametno cadastrado"
+                                 var="medicamento">
+                                 
+                                 
+                        <p:column headerText="Código">
+                            #{medicamento.idMedicamento}
+                        </p:column>
+                        
+                        <p:column headerText="Medicamento">
+                            #{medicamento.nomeMedicamento}
+                        </p:column>
+                        <p:column headerText="Princípio Ativo">
+                            #{medicamento.principiosativos.descricao}
+                        </p:column>
+
+
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{medicamentoController.editar(medicamento)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{medicamentoController.excluir(medicamento)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

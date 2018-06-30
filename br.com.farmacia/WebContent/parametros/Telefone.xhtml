@@ -1,0 +1,109 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Pessoa">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{telefoneController.telefone.sequencial}" />
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="4">
+      				
+      				<h:outputLabel value="Pessoa" />
+      				<p:selectOneMenu value="#{telefoneController.telefone.pessoas}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione a pessoa"/>  
+      					<f:selectItems 
+      						value="#{pessoaController.listarPessoas()}"
+      						var="pessoa" 
+      						itemLabel="#{pessoa.nome}"
+      						itemValue="#{pessoa}" />
+      				</p:selectOneMenu>
+      				
+      				
+      				<h:outputLabel value="Número de telefone:" />
+      				<p:inputText value="#{telefoneController.telefone.numeroTelefone}" />
+      				
+      				<h:outputLabel value="TipoTelefone" />
+      				<p:selectOneMenu value="#{telefoneController.telefone.tipostelefones}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione um tipo de Telefone"/>  
+      					<f:selectItems 
+      						value="#{tipoTelefoneController.listarTipoTelefones()}"
+      						var="telefone" 
+      						itemLabel="#{telefone.descricao}"
+      						itemValue="#{telefone}" />
+      				</p:selectOneMenu>
+   		
+      				
+                    </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{telefoneController.salvar()}" 
+                                     update="@form">
+                     </p:commandButton>                
+
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{telefoneController.listarTelefones()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhum telefone cadastrado"
+                                 var="telefone">
+                        
+                        <p:column headerText="Código">
+                            #{telefone.sequencial}
+                        </p:column>
+                        <p:column headerText="Nome">
+                            #{telefone.pessoas.nome}
+                        </p:column>
+                        
+                        <p:column headerText="Número">
+                            #{telefone.numeroTelefone}
+                        </p:column>
+						
+						 <p:column headerText="Tipo">
+                            #{telefone.tipostelefones.descricao}
+                        </p:column>
+                        
+                        
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{telefoneController.editar(telefone)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{telefoneController.excluir(telefone)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

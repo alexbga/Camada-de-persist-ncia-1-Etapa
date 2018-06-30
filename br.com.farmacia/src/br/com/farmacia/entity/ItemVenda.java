@@ -1,5 +1,7 @@
 package br.com.farmacia.entity;
 
+import java.util.List;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -12,6 +14,8 @@ public class ItemVenda {
     
     @NotNull(message = "Informe o Valor")
     private Double ValorUnitario;
+    
+    
     @NotNull(message = "Informe o Quantidade")
     private Short Quantidade;
     
@@ -19,9 +23,8 @@ public class ItemVenda {
     @JoinColumn(name = "IdMedicamento")//FK
     private Medicamento medicamentos;
     
-    @ManyToOne
-    @JoinColumn(name = "NumeroVenda")//FK
-    private Venda vendas;
+    @ManyToMany(mappedBy = "itensvenda")
+    private List<Funcionario> funcionarios;
 
     public Short getIdItemVenda() {
         return IdItemVenda;
@@ -55,13 +58,43 @@ public class ItemVenda {
         this.medicamentos = medicamentos;
     }
 
-    public Venda getVendas() {
-        return vendas;
-    }
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
+	}
 
-    public void setVendas(Venda vendas) {
-        this.vendas = vendas;
-    }
+	public void setFuncionarios(List<Funcionario> funcionarios) {
+		this.funcionarios = funcionarios;
+	}
+
+	public void setValorUnitario(Double valorUnitario) {
+		ValorUnitario = valorUnitario;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdItemVenda == null) ? 0 : IdItemVenda.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ItemVenda other = (ItemVenda) obj;
+		if (IdItemVenda == null) {
+			if (other.IdItemVenda != null)
+				return false;
+		} else if (!IdItemVenda.equals(other.IdItemVenda))
+			return false;
+		return true;
+	}
+
     
     
 }

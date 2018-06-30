@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Endereco">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{enderecoController.endereco.idEndereco}" />
+                    
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                    <h:outputLabel value="Pessoa" />
+      				<p:selectOneMenu value="#{enderecoController.endereco.pessoas}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione uma Pessoa"/>  
+      					<f:selectItems 
+      						value="#{pessoaController.listarPessoas()}"
+      						var="pessoa" 
+      						itemLabel="#{pessoa.nome}"
+      						itemValue="#{pessoa}" />
+      				</p:selectOneMenu>
+                        
+                    <h:outputLabel value="Cidade:" />
+      				<p:inputText value="#{enderecoController.endereco.cidade}" />
+      				
+      				<h:outputLabel value="Logradouro:" />
+      				<p:inputText value="#{enderecoController.endereco.logradouro}" />
+      				
+      				<h:outputLabel value="CEP:" />
+      				<p:inputText value="#{enderecoController.endereco.CEP}" />
+      				
+      				<h:outputLabel value="Número:" />
+      				<p:inputText value="#{enderecoController.endereco.numero}" />
+      				
+      				<h:outputLabel value="Complemento:" />
+      				<p:inputText value="#{enderecoController.endereco.complemento}" />
+      				
+      				<h:outputLabel value="Bairro:" />
+      				<p:inputText value="#{enderecoController.endereco.bairro}" />
+      				
+      				<h:outputLabel value="UnidadeFederativa" />
+      				<p:selectOneMenu value="#{enderecoController.endereco.unidadeFederativas}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione uma UnidadeFederativa"/>  
+      					<f:selectItems 
+      						value="#{unidadeFederativaController.listarUnidadesFederativas()}"
+      						var="uf" 
+      						itemLabel="#{uf.nomeDoEstado}"
+      						itemValue="#{unidadeFederativa}" />
+      				</p:selectOneMenu>
+      				
+                    </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{enderecoController.salvar()}"
+                                     update="@form"/>
+                    
+                    
+                    <p:dataTable styleClass="tabela"
+                    			 value="#{enderecoController.listarEnderecos()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhum endereço cadastrado"
+                                 var="endereco">
+                        
+                        <p:column headerText="Pessoa">
+                            #{endereco.pessoas.nome}
+                        </p:column>
+                        <p:column headerText="Cidade">
+                            #{endereco.cidade}
+                        </p:column>
+                        <p:column headerText="Logradouro">
+                            #{endereco.logradouro}
+                        </p:column>
+                        <p:column headerText="Cidade">
+                            #{endereco.cidade}
+                        </p:column>
+                         <p:column headerText="Bairro">
+                            #{endereco.bairro}
+                        </p:column>
+                        <p:column headerText="Cep">
+                            #{endereco.CEP}
+                        </p:column>
+                        <p:column headerText="Número">
+                            #{endereco.numero}
+                        </p:column>
+                        <p:column headerText="Complemento">
+                            #{endereco.complemento}
+                        </p:column>
+
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{enderecoController.editar(endereco)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{enderecoController.excluir(endereco)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

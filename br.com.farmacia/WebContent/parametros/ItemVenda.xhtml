@@ -1,0 +1,96 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="ItemVenda">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{itemVendaController.itemVenda.idItemVenda}" />
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                    <h:outputLabel value="Valor:" />
+      				<p:inputText value="#{itemVendaController.itemVenda.valorUnitario}" />
+      				
+      				<h:outputLabel value="Medicamento" />
+      				<p:selectOneMenu value="#{itemVendaController.itemVenda.medicamentos}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione o Medicamento"/>  
+      					<f:selectItems 
+      						value="#{medicamentoController.listarMedicamentos()}"
+      						var="medicamento" 
+      						itemLabel="#{medicamento.nomeMedicamento}"
+      						itemValue="#{medicamento}" />
+      				</p:selectOneMenu>
+      				
+      				<h:outputLabel value="Quantidade:" />
+      				<p:inputText value="#{itemVendaController.itemVenda.quantidade}" />
+      				
+   		
+      				
+                    </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{itemVendaController.salvar()}" 
+                                     update="@form">
+                     </p:commandButton>                
+ 
+ 					<p:dataTable styleClass="tabela"
+                    			 value="#{itemVendaController.listarItens()}"
+                                 rows="10"
+                                 paginator="true"
+                                 emptyMessage="Nenhum item cadastrado"
+                                 var="item">
+                        
+                        <p:column headerText="Código">
+                            #{item.idItemVenda}
+                        </p:column>
+                        
+                        <p:column headerText="ValorUnitario">
+                            #{item.valorUnitario}
+                        </p:column>
+                        
+                         <p:column headerText="Quantidade">
+                            #{item.quantidade}
+                        </p:column>
+                        
+                         <p:column headerText="Medicamento">
+                            #{item.medicamentos.nomeMedicamento}
+                        </p:column>
+  
+
+                        <p:column headerText="Editar">
+                            <p:commandButton actionListener="#{itemVendaController.editar(item)}"
+                                             update="@form"
+                                             process="@this"
+                                             value="Editar"/>
+                        </p:column>
+                        
+                        <p:column headerText="Excluir">
+                            <p:commandButton value="Excluir"
+                            				 process="@this"
+                            				 actionListener="#{itemVendaController.excluir(item)}"
+                            				 update="@form" />
+                        </p:column>
+                        
+                    </p:dataTable>
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

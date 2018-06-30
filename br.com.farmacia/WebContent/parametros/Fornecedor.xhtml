@@ -1,0 +1,66 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+  
+    <ui:composition template="../template.xhtml">
+        
+        <ui:define name="conteudo">
+            
+            <p:panel header="Fornecedor">
+             
+                <h:form>
+                    
+                    <h:inputHidden value="#{fornecedorController.pessoa.idPessoa}" />
+                    <p:growl showDetail="false" sticky="true"/>
+                    
+                    <h:panelGrid columns="2">
+                        
+                    <h:outputLabel value="Nome:" />
+      				<p:inputText value="#{fornecedorController.pessoa.nome}" />
+      				
+      				<h:outputLabel value="Data Nascimento:" />
+      				<p:calendar value="#{fornecedorController.pessoa.dataNascimento}" />
+      				
+      				<h:outputLabel value="CPF" />
+      				<p:inputText value="#{fornecedorController.pessoa.CPF}" />
+      				
+      				<h:outputLabel value="RG:" />
+      				<p:inputText value="#{fornecedorController.pessoa.RG}" />
+   					
+   					<h:outputLabel value="SiglaSexo" />
+      				<p:selectOneMenu value="#{fornecedorController.pessoa.sexos}"
+      						 converter="#{entityConverter}">
+      						 		
+      								<f:selectItem itemValue="" 
+      										itemLabel="Selecione um Sexo"/>  
+      					<f:selectItems 
+      						value="#{sexoController.listarSexos()}"
+      						var="sexos" 
+      						itemLabel="#{sexos.descricao}"
+      						itemValue="#{sexos}" />
+      				</p:selectOneMenu>      			
+      				
+      				<h:outputLabel value="Email" />
+      				<p:inputText value="#{fornecedorController.pessoa.fornecedor.email}" />
+      				
+                  </h:panelGrid>
+
+                    <p:commandButton value="Salvar" 
+                                     actionListener="#{fornecedorController.salvar()}" 
+                                     update="@form">
+                     </p:commandButton>                
+
+                    
+                    
+                </h:form>
+                
+                
+            </p:panel>
+            
+        </ui:define>
+        
+    </ui:composition>
+    
+</html>

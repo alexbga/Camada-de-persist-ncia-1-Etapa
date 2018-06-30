@@ -4,7 +4,7 @@
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
    		<jta-data-source>farmacia</jta-data-source>
    		
-   		<class>br.com.farmacia.entity.Endereco</class>
+   		<class>br.com.farmacia.entity.Endereco</class> 
 		<class>br.com.farmacia.entity.Fornecedor</class>
 		<class>br.com.farmacia.entity.Funcionario</class>
 		<class>br.com.farmacia.entity.ItemVenda</class>
@@ -16,7 +16,7 @@
 		<class>br.com.farmacia.entity.Telefone</class>
 		<class>br.com.farmacia.entity.TipoTelefone</class>
 		<class>br.com.farmacia.entity.UnidadeFederativa</class>
-		<class>br.com.farmacia.entity.Venda</class>
+		<!--  <class>br.com.farmacia.entity.Venda</class> -->
 		
 		<properties>
 			<property name="eclipselink.logging.level" value="FINE"/>

@@ -11,11 +11,11 @@ public class Endereco {
     private Short IdEndereco;
     
     @NotNull(message = "Informe a Cidade")
-    @Size(max = 50, message = "Cidade dever ter atÃ© 50 caracteres")
+    @Size(max = 50, message = "Cidade dever ter até 50 caracteres")
     private String Cidade;
     
     @NotNull(message = "Informe o Logradouro")
-    @Size(max = 50, message = "Logradouro dever ter atÃ© 80 caracteres")
+    @Size(max = 50, message = "Logradouro dever ter até 80 caracteres")
     private String Logradouro;
     
     @NotNull(message = "Informe o CEP")
@@ -27,11 +27,11 @@ public class Endereco {
     private String Complemento;
     
     @NotNull(message = "Informe o Bairro")
-    @Size(max = 50, message = "Bairro dever ter atÃ© 50 caracteres")
+    @Size(max = 50, message = "Bairro dever ter até 50 caracteres")
     private String Bairro;
     
     
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "IdPessoa")//FK
     private Pessoa pessoas;
     
@@ -110,6 +110,32 @@ public class Endereco {
     public void setUnidadeFederativas(UnidadeFederativa unidadeFederativas) {
         this.unidadeFederativas = unidadeFederativas;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((pessoas == null) ? 0 : pessoas.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Endereco other = (Endereco) obj;
+		if (pessoas == null) {
+			if (other.pessoas != null)
+				return false;
+		} else if (!pessoas.equals(other.pessoas))
+			return false;
+		return true;
+	}
+    
     
     
     

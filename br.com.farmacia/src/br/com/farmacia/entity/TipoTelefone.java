@@ -11,8 +11,8 @@ public class TipoTelefone {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Short IdTipoTelefone;
     
-    @NotNull(message = "Informe a descriÃ§Ã£o do Telefone")
-    @Size(max = 50, message = "DescriÃ§Ã£o dever ter atÃ© 80 caracteres")
+    @NotNull(message = "Informe a descrição do Telefone")
+    @Size(max = 50, message = "Descrição dever ter até 80 caracteres")
     private String Descricao;
     
     @OneToMany(mappedBy = "tipostelefones")
@@ -41,6 +41,31 @@ public class TipoTelefone {
     public void setTelefone(List<Telefone> telefone) {
         this.telefone = telefone;
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((IdTipoTelefone == null) ? 0 : IdTipoTelefone.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		TipoTelefone other = (TipoTelefone) obj;
+		if (IdTipoTelefone == null) {
+			if (other.IdTipoTelefone != null)
+				return false;
+		} else if (!IdTipoTelefone.equals(other.IdTipoTelefone))
+			return false;
+		return true;
+	}
     
     
 }
